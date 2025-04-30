@@ -6,6 +6,7 @@ val javaVersion = JavaVersion.VERSION_21
 val jacksonVersion: String by project
 val logbackVersion: String by project
 val junitVersion: String by project
+val lombokVersion: String by project
 
 plugins {
     id("com.adarshr.test-logger")
@@ -18,8 +19,12 @@ repositories {
 }
 
 dependencies {
-    implementation("ch.qos.logback:logback-classic:${logbackVersion}")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
     testImplementation(platform("org.junit:junit-bom:$junitVersion"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")

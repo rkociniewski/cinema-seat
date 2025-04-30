@@ -1,5 +1,6 @@
 package rk.cinema;
 
+import lombok.extern.slf4j.Slf4j;
 import rk.cinema.model.Cinema;
 import rk.cinema.model.ClientTask;
 
@@ -14,6 +15,7 @@ import java.util.stream.IntStream;
  * Initializes a cinema with a default number of seats and runs multiple concurrent client tasks
  * that attempt to reserve or cancel seats.
  */
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Cinema cinema = new Cinema();
@@ -25,6 +27,6 @@ public class Main {
 
         } // try-with-resources ensures shutdown
 
-        System.out.println("\nFinal reservation count: " + cinema.getReservedSeatsCount());
+        log.info("Final reservation count: {}", cinema.getReservedSeatsCount());
     }
 }
