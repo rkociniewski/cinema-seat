@@ -6,34 +6,29 @@ import java.util.concurrent.locks.StampedLock;
 import java.util.stream.IntStream;
 
 public class Cinema {
-    private final Map<Integer, Boolean> seats = new HashMap<>();
+    private final Map<Integer, String> seats = new HashMap<>();
     private final StampedLock lock = new StampedLock();
 
     public Cinema(int numberOfSeats) {
-        // false = seat isn't reserved
-        IntStream.rangeClosed(1, numberOfSeats).forEach(i -> seats.put(i, false));
+        IntStream.rangeClosed(1, numberOfSeats).forEachOrdered(i -> seats.put(i, null));
     }
 
-    public boolean reserveSeat(int seatNumber) {
+    public boolean reserveSeat(int seatNumber, String clientId) {
         long stamp = lock.writeLock();
         try {
-            if (Boolean.TRUE.equals(seats.get(seatNumber))) {
-                return false; // The seat is reserved already
-            }
-            seats.put(seatNumber, true);
+            if (seats.get(seatNumber) != null) return false;
+            seats.put(seatNumber, clientId);
             return true;
         } finally {
             lock.unlockWrite(stamp);
         }
     }
 
-    public boolean cancelReservation(int seatNumber) {
+    public boolean cancelReservation(int seatNumber, String clientId) {
         long stamp = lock.writeLock();
         try {
-            if (Boolean.FALSE.equals(seats.get(seatNumber))) {
-                return false;  // The seat is free
-            }
-            seats.put(seatNumber, false);
+            if (!clientId.equals(seats.get(seatNumber))) return false;
+            seats.put(seatNumber, null);
             return true;
         } finally {
             lock.unlockWrite(stamp);
@@ -42,15 +37,24 @@ public class Cinema {
 
     public boolean isSeatAvailable(int seatNumber) {
         long stamp = lock.tryOptimisticRead();
-        boolean available = Boolean.FALSE.equals(seats.get(seatNumber));
+        boolean available = (seats.get(seatNumber) == null);
         if (!lock.validate(stamp)) {
             stamp = lock.readLock();
             try {
-                available = Boolean.FALSE.equals(seats.get(seatNumber));
+                available = (seats.get(seatNumber) == null);
             } finally {
                 lock.unlockRead(stamp);
             }
         }
         return available;
+    }
+
+    public long getReservedSeatsCount() {
+        long stamp = lock.readLock();
+        try {
+            return seats.values().stream().filter(v -> v != null).count();
+        } finally {
+            lock.unlockRead(stamp);
+        }
     }
 }
