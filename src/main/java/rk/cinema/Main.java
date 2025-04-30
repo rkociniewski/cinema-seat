@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Cinema cinema = new Cinema(100);
         try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
             final Random random = new Random();
@@ -18,7 +18,6 @@ public class Main {
                     .forEachOrdered(executor::execute);
 
         } // try-with-resources ensures shutdown
-
 
         System.out.println("\nFinal reservation count: " + cinema.getReservedSeatsCount());
     }
