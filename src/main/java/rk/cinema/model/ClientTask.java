@@ -4,30 +4,24 @@ import rk.cinema.error.IllegalSeatReservedException;
 
 import java.util.UUID;
 
-public class ClientTask implements Runnable {
-    private final String clientId = UUID.randomUUID().toString();
-    private final Cinema cinema;
-    private final int seatNumber;
-
-    public ClientTask(Cinema cinema, int seatNumber) {
-        this.cinema = cinema;
-        this.seatNumber = seatNumber;
-    }
+public record ClientTask(Cinema cinema, int seatNumber) implements Runnable {
+    private static final ThreadLocal<String> clientId = ThreadLocal.withInitial(() -> UUID.randomUUID().toString());
 
     @Override
     public void run() {
+        String id = clientId.get();
         try {
-            System.out.println("Client " + clientId + " is checking seat: " + seatNumber);
+            System.out.println("Client " + id + " is checking seat: " + seatNumber);
 
             if (cinema.isSeatAvailable(seatNumber)) {
-                boolean reserved = cinema.reserveSeat(seatNumber, clientId);
-                System.out.println("Client " + clientId + (reserved ? " reserved seat " : " couldn't reserve seat ") + seatNumber);
+                boolean reserved = cinema.reserveSeat(seatNumber, id);
+                System.out.println("Client " + id + (reserved ? " reserved seat " : " couldn't reserve seat ") + seatNumber);
             } else {
-                boolean canceled = cinema.cancelReservation(seatNumber, clientId);
-                System.out.println("Client " + clientId + (canceled ? " canceled reservation for seat " : " couldn't cancel reservation for seat ") + seatNumber);
+                boolean canceled = cinema.cancelReservation(seatNumber, id);
+                System.out.println("Client " + id + (canceled ? " canceled reservation for seat " : " couldn't cancel reservation for seat ") + seatNumber);
             }
         } catch (IllegalSeatReservedException e) {
-            System.err.println("Client " + clientId + " error: " + e.getMessage());
+            System.err.println("Client " + id + " error: " + e.getMessage());
         }
     }
 }
