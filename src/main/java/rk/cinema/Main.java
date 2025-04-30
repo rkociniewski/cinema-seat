@@ -10,11 +10,11 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        Cinema cinema = new Cinema(100);
+        Cinema cinema = new Cinema();
         try (ExecutorService executor = Executors.newFixedThreadPool(10)) {
             final Random random = new Random();
-            IntStream.range(1, 51)
-                    .mapToObj(i -> new ClientTask(cinema, random.nextInt(51)))
+            IntStream.range(1, 100)
+                    .mapToObj(i -> new ClientTask(cinema, random.nextInt(100) + 1))
                     .forEachOrdered(executor::execute);
 
         } // try-with-resources ensures shutdown

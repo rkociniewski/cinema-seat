@@ -3,10 +3,10 @@ package rk.cinema.model;
 import rk.cinema.error.IllegalSeatReservedException;
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
+import static rk.cinema.util.Const.DEFAULT_SEAT_COUNT;
 import static rk.cinema.util.Const.UNRESERVED;
 
 public class Cinema {
@@ -14,6 +14,10 @@ public class Cinema {
 
     public Cinema(int numberOfSeats) {
         IntStream.rangeClosed(1, numberOfSeats).forEach(i -> seats.put(i, UNRESERVED));
+    }
+
+    public Cinema() {
+        this(DEFAULT_SEAT_COUNT);
     }
 
     private void validateSeatNumber(int seatNumber) {
@@ -24,7 +28,7 @@ public class Cinema {
 
     public boolean reserveSeat(int seatNumber, String clientId) {
         validateSeatNumber(seatNumber);
-        return Objects.equals(seats.computeIfPresent(seatNumber, (k, v) -> UNRESERVED.equals(v) ? clientId : v), clientId);
+        return seats.replace(seatNumber, UNRESERVED, clientId);
     }
 
     public boolean cancelReservation(int seatNumber, String clientId) {
