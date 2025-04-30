@@ -16,8 +16,8 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(10);
 
         List<ClientTask> tasks = new ArrayList<>();
-        IntStream.range(0, 50)
-                .mapToObj(i -> new ClientTask(cinema))
+        IntStream.range(1, 51)
+                .mapToObj(i -> new ClientTask(cinema, i))
                 .forEachOrdered(tasks::add);
 
         tasks.forEach(executor::execute);

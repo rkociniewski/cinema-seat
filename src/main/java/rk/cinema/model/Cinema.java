@@ -2,6 +2,7 @@ package rk.cinema.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.locks.StampedLock;
 import java.util.stream.IntStream;
 
@@ -10,10 +11,11 @@ public class Cinema {
     private final StampedLock lock = new StampedLock();
 
     public Cinema(int numberOfSeats) {
-        IntStream.rangeClosed(1, numberOfSeats).forEachOrdered(i -> seats.put(i, null));
+        IntStream.rangeClosed(1, numberOfSeats).forEach(i -> seats.put(i, null));
     }
 
     public boolean reserveSeat(int seatNumber, String clientId) {
+        if (!seats.containsKey(seatNumber)) return false;
         long stamp = lock.writeLock();
         try {
             if (seats.get(seatNumber) != null) return false;
@@ -25,6 +27,7 @@ public class Cinema {
     }
 
     public boolean cancelReservation(int seatNumber, String clientId) {
+        if (!seats.containsKey(seatNumber)) return false;
         long stamp = lock.writeLock();
         try {
             if (!clientId.equals(seats.get(seatNumber))) return false;
@@ -36,6 +39,7 @@ public class Cinema {
     }
 
     public boolean isSeatAvailable(int seatNumber) {
+        if (!seats.containsKey(seatNumber)) return false;
         long stamp = lock.tryOptimisticRead();
         boolean available = (seats.get(seatNumber) == null);
         if (!lock.validate(stamp)) {
@@ -52,7 +56,7 @@ public class Cinema {
     public long getReservedSeatsCount() {
         long stamp = lock.readLock();
         try {
-            return seats.values().stream().filter(v -> v != null).count();
+            return seats.values().stream().filter(Objects::nonNull).count();
         } finally {
             lock.unlockRead(stamp);
         }

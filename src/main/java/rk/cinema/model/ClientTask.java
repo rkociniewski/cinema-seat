@@ -1,20 +1,19 @@
 package rk.cinema.model;
 
-import java.util.Random;
 import java.util.UUID;
 
 public class ClientTask implements Runnable {
     private final String clientId = UUID.randomUUID().toString();
     private final Cinema cinema;
-    private final Random random = new Random();
+    private final int seatNumber;
 
-    public ClientTask(Cinema cinema) {
+    public ClientTask(Cinema cinema, int seatNumber) {
         this.cinema = cinema;
+        this.seatNumber = seatNumber;
     }
 
     @Override
     public void run() {
-        int seatNumber = random.nextInt(100) + 1;
         System.out.println("Client " + clientId + " is checking seat: " + seatNumber);
 
         if (cinema.isSeatAvailable(seatNumber)) {
