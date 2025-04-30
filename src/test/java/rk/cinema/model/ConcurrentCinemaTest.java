@@ -15,6 +15,11 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Concurrency tests for the {@link Cinema} class.
+ * <p>
+ * These tests validate thread safety and correctness of concurrent operations like reservation and cancellation.
+ */
 @Timeout(value = 2, unit = TimeUnit.SECONDS)
 class ConcurrentCinemaTest {
     private Cinema cinema;
@@ -26,6 +31,10 @@ class ConcurrentCinemaTest {
     }
 
     @Test
+    /**
+     * Verifies that when multiple clients attempt to reserve the same seat concurrently,
+     * only one succeeds and the rest fail.
+     */
     void givenMultipleClients_whenReservingSameSeat_thenOnlyOneSucceeds() throws InterruptedException {
         int seatToReserve = 1;
         List<Boolean> results = Collections.synchronizedList(new ArrayList<>());
@@ -59,6 +68,10 @@ class ConcurrentCinemaTest {
     }
 
     @Test
+    /**
+     * Verifies that when each client attempts to reserve a different seat concurrently,
+     * all succeed without conflicts.
+     */
     void givenMultipleClients_whenReservingDifferentSeats_thenAllSucceed() throws InterruptedException {
         List<Boolean> results = Collections.synchronizedList(new ArrayList<>());
         CountDownLatch ready = new CountDownLatch(threadCount);
@@ -92,6 +105,10 @@ class ConcurrentCinemaTest {
     }
 
     @Test
+    /**
+     * Verifies that when one client reserves a seat and another tries to cancel it concurrently,
+     * only the reserver can successfully perform the action.
+     */
     void givenReserverAndIntruder_whenBothActConcurrently_thenOnlyReserverCanCancel() throws InterruptedException {
         int seatNumber = 1;
         String reserverId = "client-RESERVER";
@@ -134,6 +151,9 @@ class ConcurrentCinemaTest {
     }
 
     @Test
+    /**
+     * Verifies that all clients who reserved their own seats can successfully cancel them concurrently.
+     */
     void should_all_clients_cancel_their_own_seats_concurrently() throws InterruptedException {
         IntStream.range(0, threadCount).forEach(i ->
                 cinema.reserveSeat(i + 1, "client-" + i));

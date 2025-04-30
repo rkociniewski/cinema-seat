@@ -8,6 +8,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
+/**
+ * Entry point for the Cinema Reservation application.
+ * <p>
+ * Initializes a cinema with a default number of seats and runs multiple concurrent client tasks
+ * that attempt to reserve or cancel seats.
+ */
 public class Main {
     public static void main(String[] args) {
         Cinema cinema = new Cinema();

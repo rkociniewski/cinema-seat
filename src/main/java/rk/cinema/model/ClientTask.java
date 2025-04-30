@@ -4,7 +4,16 @@ import rk.cinema.error.IllegalSeatReservedException;
 
 import java.util.UUID;
 
+/**
+ * Represents a client action executed concurrently.
+ * <p>
+ * Each task attempts to reserve or cancel a specific seat in the cinema.
+ * Uses a thread-local client ID to simulate unique users.
+ */
 public record ClientTask(Cinema cinema, int seatNumber) implements Runnable {
+    /**
+     * Thread-local client ID simulating a unique user per thread.
+     */
     private static final ThreadLocal<String> clientId = ThreadLocal.withInitial(() -> UUID.randomUUID().toString());
 
     @Override
