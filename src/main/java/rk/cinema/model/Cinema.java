@@ -11,7 +11,7 @@ public class Cinema {
     private final Map<Integer, String> seats = new ConcurrentHashMap<>();
 
     public Cinema(int numberOfSeats) {
-        IntStream.rangeClosed(1, numberOfSeats).forEach(i -> seats.put(i, null));
+        IntStream.rangeClosed(1, numberOfSeats).forEach(i -> seats.put(i, ""));
     }
 
     private void validateSeatNumber(int seatNumber) {
@@ -22,7 +22,7 @@ public class Cinema {
 
     public boolean reserveSeat(int seatNumber, String clientId) {
         validateSeatNumber(seatNumber);
-        return seats.computeIfPresent(seatNumber, (k, v) -> v == null ? clientId : v).equals(clientId);
+        return Objects.equals(seats.computeIfPresent(seatNumber, (k, v) -> v == "" ? clientId : v), clientId);
     }
 
     public boolean cancelReservation(int seatNumber, String clientId) {
