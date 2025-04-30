@@ -1,5 +1,7 @@
 package rk.cinema.model;
 
+import rk.cinema.error.IllegalSeatReservedException;
+
 import java.util.UUID;
 
 public class ClientTask implements Runnable {
@@ -14,14 +16,18 @@ public class ClientTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Client " + clientId + " is checking seat: " + seatNumber);
+        try {
+            System.out.println("Client " + clientId + " is checking seat: " + seatNumber);
 
-        if (cinema.isSeatAvailable(seatNumber)) {
-            boolean reserved = cinema.reserveSeat(seatNumber, clientId);
-            System.out.println("Client " + clientId + (reserved ? " reserved seat " : " couldn't reserve seat ") + seatNumber);
-        } else {
-            boolean canceled = cinema.cancelReservation(seatNumber, clientId);
-            System.out.println("Client " + clientId + (canceled ? " canceled reservation for seat " : " couldn't cancel reservation for seat ") + seatNumber);
+            if (cinema.isSeatAvailable(seatNumber)) {
+                boolean reserved = cinema.reserveSeat(seatNumber, clientId);
+                System.out.println("Client " + clientId + (reserved ? " reserved seat " : " couldn't reserve seat ") + seatNumber);
+            } else {
+                boolean canceled = cinema.cancelReservation(seatNumber, clientId);
+                System.out.println("Client " + clientId + (canceled ? " canceled reservation for seat " : " couldn't cancel reservation for seat ") + seatNumber);
+            }
+        } catch (IllegalSeatReservedException e) {
+            System.err.println("Client " + clientId + " error: " + e.getMessage());
         }
     }
 }
