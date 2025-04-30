@@ -34,6 +34,17 @@ tasks.test {
     useJUnitPlatform()
 }
 
+tasks.javadoc {
+    isFailOnError = false
+    options.encoding = "UTF-8"
+    source = sourceSets["main"].allJava
+    (options as StandardJavadocDocletOptions).apply {
+        addBooleanOption("Xdoclint:none", true)
+        addStringOption("charset", "UTF-8")
+        addStringOption("docencoding", "UTF-8")
+    }
+}
+
 testlogger {
     showStackTraces = false
     slowThreshold = 10000
