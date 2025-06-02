@@ -1,4 +1,4 @@
-package rk.cinema.util;
+package rk.powermilk.cinema.util;
 
 /**
  * Utility class holding constant values for the Cinema Reservation System.
@@ -13,5 +13,6 @@ public final class Const {
      */
     public static final int DEFAULT_SEAT_COUNT = 100;
 
-    private Const() {}
+    private Const() {
+    }
 }

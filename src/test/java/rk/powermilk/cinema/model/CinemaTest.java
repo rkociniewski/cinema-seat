@@ -1,8 +1,8 @@
-package rk.cinema.model;
+package rk.powermilk.cinema.model;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
-import rk.cinema.error.IllegalSeatReservedException;
+import rk.powermilk.cinema.error.IllegalSeatReservedException;
 
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
@@ -104,7 +104,7 @@ class CinemaTest {
     @Test
     void givenInvalidSeatNumber_whenReserving_thenThrowsException() {
         IllegalSeatReservedException exception = assertThrows(IllegalSeatReservedException.class, () ->
-                cinema.reserveSeat(-1, client1Id));
+            cinema.reserveSeat(-1, client1Id));
         assertEquals("Seat number -1 is invalid.", exception.getMessage());
     }
 
@@ -114,7 +114,7 @@ class CinemaTest {
     @Test
     void givenInvalidSeatNumber_whenCancelling_thenThrowsException() {
         IllegalSeatReservedException exception = assertThrows(IllegalSeatReservedException.class, () ->
-                cinema.cancelReservation(101, client1Id));
+            cinema.cancelReservation(101, client1Id));
         assertEquals("Seat number 101 is invalid.", exception.getMessage());
     }
 
@@ -124,7 +124,7 @@ class CinemaTest {
     @Test
     void givenInvalidSeatNumber_whenCheckingAvailability_thenThrowsException() {
         IllegalSeatReservedException exception = assertThrows(IllegalSeatReservedException.class, () ->
-                cinema.isSeatAvailable(1010));
+            cinema.isSeatAvailable(1010));
         assertEquals("Seat number 1010 is invalid.", exception.getMessage());
     }
 
@@ -134,8 +134,8 @@ class CinemaTest {
     @Test
     void givenMultipleSeats_whenReserved_thenAllSucceed() {
         IntStream.rangeClosed(1, 5)
-                .mapToObj(i -> cinema.reserveSeat(i, client1Id))
-                .forEach(result -> assertTrue(result));
+            .mapToObj(i -> cinema.reserveSeat(i, client1Id))
+            .forEach(result -> assertTrue(result));
         assertEquals(5, cinema.getReservedSeatsCount());
     }
 

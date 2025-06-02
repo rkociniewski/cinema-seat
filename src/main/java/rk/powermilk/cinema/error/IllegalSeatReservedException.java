@@ -1,4 +1,4 @@
-package rk.cinema.error;
+package rk.powermilk.cinema.error;
 
 /**
  * Exception thrown when a seat number is invalid (out of bounds).

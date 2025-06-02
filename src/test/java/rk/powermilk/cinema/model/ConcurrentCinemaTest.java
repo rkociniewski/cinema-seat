@@ -1,4 +1,4 @@
-package rk.cinema.model;
+package rk.powermilk.cinema.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -156,7 +156,7 @@ class ConcurrentCinemaTest {
      */
     void should_all_clients_cancel_their_own_seats_concurrently() throws InterruptedException {
         IntStream.range(0, threadCount).forEach(i ->
-                cinema.reserveSeat(i + 1, "client-" + i));
+            cinema.reserveSeat(i + 1, "client-" + i));
 
         CountDownLatch ready = new CountDownLatch(threadCount);
         CountDownLatch start = new CountDownLatch(1);

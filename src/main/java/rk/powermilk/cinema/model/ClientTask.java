@@ -1,12 +1,12 @@
-package rk.cinema.model;
+package rk.powermilk.cinema.model;
 
 import lombok.extern.slf4j.Slf4j;
-import rk.cinema.error.IllegalSeatReservedException;
+import rk.powermilk.cinema.error.IllegalSeatReservedException;
 
 import java.util.UUID;
 
 /**
- * Represents a client action that is executed concurrently.
+ * Represents a client action executed concurrently.
  * <p>
  * Each task attempts to reserve or cancel a specific seat in the cinema.
  * Uses a thread-local client ID to simulate unique users.

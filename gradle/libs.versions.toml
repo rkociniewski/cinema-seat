@@ -1,0 +1,18 @@
+[versions]
+test-logger = "4.0.0"
+manes = "0.52.0"
+junit = "5.13.0"
+jackson = "2.19.0"
+logback = "1.5.18"
+lombok = "1.18.38"
+
+[libraries]
+junit-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+junit-jupiter = { module = "org.junit:junit-bom", version.ref = "junit" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+jackson = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+
+[plugins]
+test-logger = { id = "com.adarshr.test-logger", version.ref = "test-logger" }
+manes = { id = "com.github.ben-manes.versions", version.ref = "manes" }

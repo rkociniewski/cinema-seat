@@ -1,13 +1,13 @@
-package rk.cinema.model;
+package rk.powermilk.cinema.model;
 
-import rk.cinema.error.IllegalSeatReservedException;
+import rk.powermilk.cinema.error.IllegalSeatReservedException;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.IntStream;
 
-import static rk.cinema.util.Const.DEFAULT_SEAT_COUNT;
-import static rk.cinema.util.Const.UNRESERVED;
+import static rk.powermilk.cinema.util.Const.DEFAULT_SEAT_COUNT;
+import static rk.powermilk.cinema.util.Const.UNRESERVED;
 
 /**
  * Manages seat reservations in a cinema using a thread-safe structure.

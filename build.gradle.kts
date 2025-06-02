@@ -1,17 +1,14 @@
 group = "rk.cinema"
-version = "1.0-SNAPSHOT"
+version = "1.0.1"
 
 val javaVersion = JavaVersion.VERSION_21
 
-val jacksonVersion: String by project
-val logbackVersion: String by project
-val junitVersion: String by project
-val lombokVersion: String by project
-
 plugins {
-    id("com.adarshr.test-logger")
+    alias(libs.plugins.test.logger)
+    alias(libs.plugins.manes)
     id("java")
     application
+    jacoco
 }
 
 repositories {
@@ -19,13 +16,13 @@ repositories {
 }
 
 dependencies {
-    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    compileOnly("org.projectlombok:lombok:$lombokVersion")
-    implementation("ch.qos.logback:logback-classic:$logbackVersion")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
-    testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
-    testCompileOnly("org.projectlombok:lombok:$lombokVersion")
-    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
+    annotationProcessor(libs.lombok)
+    compileOnly(libs.lombok)
+    implementation(libs.logback)
+    implementation(libs.jackson)
+    testAnnotationProcessor(libs.lombok)
+    testCompileOnly(libs.lombok)
+    testImplementation(platform(libs.junit.jupiter))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
@@ -36,7 +33,9 @@ java {
 }
 
 tasks.test {
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 tasks.javadoc {
@@ -48,6 +47,49 @@ tasks.javadoc {
         addStringOption("charset", "UTF-8")
         addStringOption("docencoding", "UTF-8")
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        csv.required.set(false)
+    }
+
+    finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.75".toBigDecimal()
+            }
+        }
+
+        rule {
+            enabled = true
+            element = "CLASS"
+            includes = listOf("rk.*")
+
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = "0.75".toBigDecimal()
+            }
+        }
+    }
+}
+
+tasks.register("cleanReports") {
+    doLast {
+        delete("${layout.buildDirectory}/reports")
+    }
+}
+
+tasks.register("coverage") {
+    dependsOn(tasks.test, tasks.jacocoTestReport, tasks.jacocoTestCoverageVerification)
 }
 
 testlogger {
