@@ -1,8 +1,7 @@
 [versions]
 test-logger = "4.0.0"
-manes = "0.52.0"
-junit = "5.13.0"
-jackson = "2.19.0"
+junit = "6.0.0-RC1"
+jackson = "2.20.0-rc1"
 logback = "1.5.18"
 lombok = "1.18.38"
 
@@ -15,4 +14,3 @@ jackson = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref 
 
 [plugins]
 test-logger = { id = "com.adarshr.test-logger", version.ref = "test-logger" }
-manes = { id = "com.github.ben-manes.versions", version.ref = "manes" }
