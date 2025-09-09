@@ -5,7 +5,6 @@ val javaVersion = JavaVersion.VERSION_21
 
 plugins {
     alias(libs.plugins.test.logger)
-    alias(libs.plugins.manes)
     id("java")
     application
     jacoco
