@@ -86,12 +86,11 @@ jobs:
       -
         name: Build project
         run: |
-          ./gradlew compileKotlin \
+          ./gradlew compileJava \
             --no-daemon \
             --no-build-cache \
             --stacktrace \
             -x test \
-            -x detekt
 
       # Perform CodeQL Analysis
       -
