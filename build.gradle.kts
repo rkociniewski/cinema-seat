@@ -68,7 +68,6 @@ tasks.jacocoTestCoverageVerification {
                 minimum = "0.75".toBigDecimal()
             }
         }
-
         rule {
             enabled = true
             element = "CLASS"

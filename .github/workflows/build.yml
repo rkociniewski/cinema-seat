@@ -44,5 +44,5 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           files: build/reports/jacoco/test/jacocoTestReport.xml
-          token: 58a70e9b-4847-4168-8c92-9d8d0fa9ae26
+          token: ${{ secrets.CODECOV_TOKEN }}
           slug: rkociniewski/cinema-seat
