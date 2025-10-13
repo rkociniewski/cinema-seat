@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 group = "rk.cinema"
-version = "1.1.2"
+version = "1.1.6"
 
 val javaVersion = JavaVersion.VERSION_25
 
