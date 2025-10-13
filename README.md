@@ -1,10 +1,10 @@
 # 🎬 Cinema Seat
 
-[![version](https://img.shields.io/badge/version-1.0.1-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.1.1-yellow.svg)](https://semver.org)
 [![Build](https://github.com/rkociniewski/cinema-seat/actions/workflows/main.yml/badge.svg)](https://github.com/rkociniewski/cinema-seat/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/rkociniewski/cinema-seat/branch/main/graph/badge.svg)](https://codecov.io/gh/rkociniewski/cinema-seat)
-[![Java](https://img.shields.io/badge/JDK-21-white?logo=openjdk)](https://www.java.com/)
-[![Gradle](https://img.shields.io/badge/Gradle-8.14.1-blue?logo=gradle)](https://gradle.org/)
+[![Java](https://img.shields.io/badge/JDK-25-white?logo=openjdk)](https://www.java.com/)
+[![Gradle](https://img.shields.io/badge/Gradle-9.10-blue?logo=gradle)](https://gradle.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-greem.svg)](https://opensource.org/licenses/MIT)
 
 A minimal Java-based simulation of a cinema seat reservation system with concurrency support and test coverage.
