@@ -1,7 +1,9 @@
+@file:Suppress("UnstableApiUsage")
+
 group = "rk.cinema"
 version = "1.0.1"
 
-val javaVersion = JavaVersion.VERSION_21
+val javaVersion = JavaVersion.VERSION_25
 
 plugins {
     alias(libs.plugins.test.logger)

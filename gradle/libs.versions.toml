@@ -1,15 +1,15 @@
 [versions]
 test-logger = "4.0.0"
 junit = "6.0.0"
-jackson = "2.20.0"
-logback = "1.5.18"
+jackson = "3.0.0"
+logback = "1.5.19"
 lombok = "1.18.42"
 
 [libraries]
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 junit-jupiter = { module = "org.junit:junit-bom", version.ref = "junit" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
-jackson = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson = { module = "tools.jackson.core:jackson-databind", version.ref = "jackson" }
 
 [plugins]
 test-logger = { id = "com.adarshr.test-logger", version.ref = "test-logger" }
