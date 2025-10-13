@@ -55,10 +55,10 @@ android:
 # Java/Kotlin specific settings
 java:
   # Java version
-  version: 21
+  version: 25
 
   # Enable Kotlin analysis
-  kotlin: true
+  kotlin: false
 
 # Performance tuning
 performance:
