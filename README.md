@@ -21,7 +21,6 @@ A minimal Java-based simulation of a cinema seat reservation system with concurr
 ## 📁 Project Structure
 
 ```
-
 src
 ├── main
 │   └── java
