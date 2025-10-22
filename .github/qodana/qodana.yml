@@ -4,8 +4,7 @@ version: "1.0"
 profile:
   name: qodana.starter
 
-projectJDK: "21" #(Applied in CI/CD pipeline)
-
+projectJDK: "25" #(Applied in CI/CD pipeline)
 
 failureConditions:
   severityThresholds:
