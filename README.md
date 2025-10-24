@@ -1,6 +1,6 @@
 # 🎬 Cinema Seat
 
-[![version](https://img.shields.io/badge/version-1.1.1-yellow.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-1.1.9-yellow.svg)](https://semver.org)
 [![Build](https://github.com/rkociniewski/cinema-seat/actions/workflows/main.yml/badge.svg)](https://github.com/rkociniewski/cinema-seat/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/rkociniewski/cinema-seat/branch/main/graph/badge.svg)](https://codecov.io/gh/rkociniewski/cinema-seat)
 [![Java](https://img.shields.io/badge/JDK-25-white?logo=openjdk)](https://www.java.com/)

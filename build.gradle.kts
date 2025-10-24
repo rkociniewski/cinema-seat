@@ -1,10 +1,9 @@
 group = "rk.cinema"
-version = "1.1.8"
+version = "1.1.9"
 
-val javaVersion = JavaVersion.VERSION_25
+val javaVersion: JavaVersion = JavaVersion.VERSION_25
 
 plugins {
-    alias(libs.plugins.test.logger)
     id("java")
     application
     jacoco
@@ -12,6 +11,11 @@ plugins {
 
 repositories {
     mavenCentral()
+}
+
+java {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
 
 dependencies {
@@ -66,6 +70,7 @@ tasks.jacocoTestCoverageVerification {
                 minimum = "0.75".toBigDecimal()
             }
         }
+
         rule {
             enabled = true
             element = "CLASS"
@@ -88,10 +93,4 @@ tasks.register("cleanReports") {
 
 tasks.register("coverage") {
     dependsOn(tasks.test, tasks.jacocoTestReport, tasks.jacocoTestCoverageVerification)
-}
-
-testlogger {
-    showStackTraces = false
-    slowThreshold = 10000
-    showSimpleNames = true
 }
